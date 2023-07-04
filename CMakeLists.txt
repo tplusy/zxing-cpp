@@ -1,8 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
 
+set(TOOLCHAIN_PATH "/opt/asr7200/x86_64-arm/arm-asr7200sdk-linux-gnueabi/usr/bin/arm-asr7200-linux-gnueabi/arm-asr7200-linux-gnueabi-")
+set(CMAKE_C_COMPILER ${TOOLCHAIN_PATH}gcc)
+set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PATH}g++)
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O2  -Wall")
+message(${CMAKE_CXX_COMPILER})
+
 project(ZXing)
 
-option (BUILD_WRITERS "Build with writer support (encoders)" ON)
+option (BUILD_WRITERS "Build with writer support (encoders)" OFF)
 option (BUILD_READERS "Build with reader support (decoders)" ON)
 option (BUILD_EXAMPLES "Build the example barcode reader/writer applications" ON)
 option (BUILD_BLACKBOX_TESTS "Build the black box reader/writer tests" OFF)
@@ -12,11 +18,14 @@ option (BUILD_C_API "Build the C-API" OFF)
 option (BUILD_EXPERIMENTAL_API "Build with experimental API" OFF)
 set(BUILD_DEPENDENCIES "AUTO" CACHE STRING "Fetch from github or use locally installed (AUTO/GITHUB/LOCAL)")
 
-if (WIN32)
+
+set(CMAKE_SYSTEM_NAME Linux)
+
+#if (WIN32)
     option (BUILD_SHARED_LIBS "Build and link as shared library" OFF)
-else()
-    option (BUILD_SHARED_LIBS "Build and link as shared library" ON)
-endif()
+#else()
+#    option (BUILD_SHARED_LIBS "Build and link as shared library" ON)
+#endif()
 
 if (MSVC)
     add_definitions (-DUNICODE -D_UNICODE -D_CRT_SECURE_NO_WARNINGS)

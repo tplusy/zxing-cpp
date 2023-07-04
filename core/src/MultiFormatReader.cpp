@@ -23,13 +23,14 @@ namespace ZXing {
 MultiFormatReader::MultiFormatReader(const DecodeHints& hints) : _hints(hints)
 {
 	auto formats = hints.formats().empty() ? BarcodeFormat::Any : hints.formats();
-
+#if 0
 	// Put linear readers upfront in "normal" mode
 	if (formats.testFlags(BarcodeFormat::LinearCodes) && !hints.tryHarder())
 		_readers.emplace_back(new OneD::Reader(hints));
-
+#endif
 	if (formats.testFlags(BarcodeFormat::QRCode | BarcodeFormat::MicroQRCode))
 		_readers.emplace_back(new QRCode::Reader(hints, true));
+#if 0
 	if (formats.testFlag(BarcodeFormat::DataMatrix))
 		_readers.emplace_back(new DataMatrix::Reader(hints, true));
 	if (formats.testFlag(BarcodeFormat::Aztec))
@@ -42,6 +43,7 @@ MultiFormatReader::MultiFormatReader(const DecodeHints& hints) : _hints(hints)
 	// At end in "try harder" mode
 	if (formats.testFlags(BarcodeFormat::LinearCodes) && hints.tryHarder())
 		_readers.emplace_back(new OneD::Reader(hints));
+#endif
 }
 
 MultiFormatReader::~MultiFormatReader() = default;

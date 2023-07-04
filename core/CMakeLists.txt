@@ -431,11 +431,11 @@ find_package(Threads REQUIRED)
 
 add_library (ZXing
     ${COMMON_FILES}
-    ${AZTEC_FILES}
-    ${DATAMATRIX_FILES}
-    ${MAXICODE_FILES}
-    ${ONED_FILES}
-    ${PDF417_FILES}
+#    ${AZTEC_FILES}
+#    ${DATAMATRIX_FILES}
+#    ${MAXICODE_FILES}
+#    ${ONED_FILES}
+#    ${PDF417_FILES}
     ${QRCODE_FILES}
     ${LIBZUECI_FILES}
 )
